@@ -8,25 +8,25 @@ class PriorityNode {
 
 class PriorityQueue {
     constructor(){
-        this.front = null
-        this.rear = null
+        this._front = null
+        this._rear = null
         this._size = 0
     }
     // Método para adicionar um elemento na fila 
     enqueue(element, priority){
-        const node = new PriorityNode(element, priority)
-        if (this.front === null && this.rear === null) {
-            this.front = node
-            this.rear = node
+        const node = new PriorityNode(element, Number(priority))
+        if (this._front === null && this._rear === null) {
+            this._front = node
+            this._rear = node
         } else {
-            /*this.rear.next = node 
-            this.rear = node*/
-            if (node.priority > this.front.priority) {
-                node.next = this.front
-                this.front = node
+            /*this._rear.next = node 
+            this._rear = node*/
+            if (node.priority > this._front.priority) {
+                node.next = this._front
+                this._front = node
             } else{
-            const temp1 = this.front
-            const temp2 = this.front.next
+            let temp1 = this._front
+            let temp2 = this._front.next
 
             while (temp2 !== null) {
                 if (node.priority > temp2.priority) {
@@ -39,9 +39,10 @@ class PriorityQueue {
                     temp2 = temp2.next
                 }
             }
-            this.rear = node
+            this._rear = node
             }
         }
+        this._size += 1
             
     }
     // Método para remover o elemento da frente da fila
@@ -49,11 +50,11 @@ class PriorityQueue {
         if ( this.isEmpty() ) { // Não há nada para remover
             return "A fila está vazia"
         }
-        const node = this.front  // Valor do nó removido
-        this.front = this.front.next  // O próximo nó se torna o primeiro
+        const node = this._front  // Valor do nó removido
+        this._front = this._front.next  // O próximo nó se torna o primeiro
 
-        if (!this.front) {
-          this.rear = null; // Se a fila ficar vazia, rear também se torna null
+        if (!this._front) {
+          this._rear = null; // Se a fila ficar vazia, rear também se torna null
         }
 
         this._size -= 1
@@ -70,16 +71,16 @@ class PriorityQueue {
     }
     // Método para ver o elemento na frente da fila
     front(){
-        return this.isEmpty()? "A fila está vazia": this.front.value
+        return this.isEmpty()? "A fila está vazia": this._front.value
     }
     // Método para ver o elemento no final da fila
     rear(){
-        return this.isEmpty()? "A fila está vazia": this.rear.value
+        return this.isEmpty()? "A fila está vazia": this._rear.value
     }
     // Método para limpar a fila
     clear() {
-        this.front = null 
-        this.rear = null
+        this._front = null 
+        this._rear = null
         this._size = 0
     }
 }
